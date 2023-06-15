@@ -1,5 +1,6 @@
 # load packages
 library(tidyverse)
+library(ggthemes)
 
 # create fake dataset
 score <- rnorm(100, 50, 10)
@@ -13,6 +14,14 @@ df
 basic_plot <- ggplot(df, aes(time, score, color = cluster)) +
   geom_point() +
   ggtitle('basic plot') 
+
+# add existing theme to basic plot
+basic_plot + theme_stata()
+basic_plot + theme_bw()
+basic_plot + theme_gdocs()
+basic_plot + theme_few()
+basic_plot + theme_calc()
+
 # add theme to basic plot
 basic_plot + 
   #text themes
@@ -28,6 +37,16 @@ basic_plot +
     family = 'sans' ,
     color = 'deepskyblue3',
     face = 'plain'),
+  axis.text.x = element_text(
+    color = 'black',
+    size = 7,
+    face = 'plain'
+  ),
+  axis.text.y = element_text(
+    color = 'black',
+    size = 7,
+    face = 'plain'
+  ),
   #line themes
   axis.ticks = element_blank(),
   panel.grid = element_blank(),
@@ -39,6 +58,16 @@ basic_plot +
   plot.background = element_rect(
     fill = 'white'),
   #legend 
+  legend.position = 'right',
+  legend.background = element_blank(),
+  legend.key = element_blank(),
+  legend.text = element_text(
+    color = 'black',
+    size = 7
+  ),
+  legend.title = element_text(
+    size = 10
+  )
 )
 
 
