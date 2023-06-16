@@ -8,6 +8,10 @@ library(gt)
 library(sjPlot)
 library(gapminder)
 
+# check data
+data(gapminder)
+gapminder
+
 # constants 
 n = 0
 c_col = c("#1e3048", "#274060", "#2f5375", "#4073a0", "#5088b9")
@@ -19,7 +23,7 @@ c_save = TRUE
 c_format = "html"
 
 # show data header, sorted by year, adding grouping column
-gt_table <- gapminder %>% 
+gt_tab <- gapminder %>% 
   arrange(-year) %>% 
   head(c_rn) %>% 
   filter(continent %in% c("Asia", "Europe", "Americas")) %>%
@@ -29,7 +33,7 @@ gt_table <- gapminder %>%
   )
 
 # adding summary rows
-gt_table <- gt_table %>% 
+gt_tab <- gt_tab %>% 
   summary_rows(
     columns = c("lifeExp", "pop", "gdpPercap"), 
     fns = list(
@@ -40,7 +44,7 @@ gt_table <- gt_table %>%
   )
 
 # changing column labels 
-gt_table <- gt_table %>% 
+gt_tab <- gt_tab %>% 
   cols_label(
     country = md("Country"),
     year = md("Year"),
@@ -50,9 +54,9 @@ gt_table <- gt_table %>%
   )
 
 # Formating columns
-gt_table <- gt_table %>% 
+gt_tab <- gt_tab %>% 
   fmt_currency(
-    columns = c("gdpPercap"),
+    columns = "gdpPercap",
     currency = "USD",
     decimals = 0
   ) %>% 
@@ -65,11 +69,7 @@ gt_table <- gt_table %>%
     align = "right",
     columns = "pop"
   ) %>% 
-  cols_align(
-    align = "left",
-    columns = "country"
-  ) %>% 
-  cols_width(
+   cols_width(
     (country) ~ px(150),
     (year) ~ px(100),
     (lifeExp) ~ px(100),
@@ -79,7 +79,7 @@ gt_table <- gt_table %>%
   opt_row_striping()
 
 # adding title and footnotes
-gt_table <- gt_table %>% 
+gt_tab <- gt_tab %>% 
   tab_header(
     title = "DATA FROM GAPMINDER",
     subtitle = "Selected values for life expectancy, GDP per capita,
@@ -102,7 +102,7 @@ gt_table <- gt_table %>%
 
 # table formatting
 # text font, size, color and borders ----
-gt_table <- gt_table %>%
+gt_tab %>%
   tab_options(
     table.font.name = "Optima",
     table.font.color = c_col[1],
@@ -201,7 +201,7 @@ gt_table <- gt_table %>%
     ),
     locations = list(
       cells_stub(gt::everything()),
-      cells_stubhead()
+      cells_stubhead()   #what is this?
     )
   ) %>% 
   tab_style(
@@ -214,4 +214,3 @@ gt_table <- gt_table %>%
       cells_body(columns = country)
     )
   ) 
-
