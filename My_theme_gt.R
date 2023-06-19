@@ -133,6 +133,21 @@ my_theme <- function(data) {
         cells_stubhead()
       )
     ) %>% 
+    tab_style(style = list( 
+      cell_text(
+        size = px(12),
+        color = "#2f5375",
+        font = "Bloomsbury"
+      ),
+      cell_borders(
+        sides = c("bottom", "right"),
+        style = "solid",
+        color = "white",
+        weight = px(1)
+      )
+    ),
+    locations = cells_footnotes()
+    ) %>%
     opt_row_striping() %>%
     opt_table_font(
       font = list(

@@ -1,12 +1,15 @@
 #install required packages
 #install.packages('gt')
-install.packages('gapminder')
+#install.packages('gapminder')
+#install.packages('webshot2')
 
 #Load required packages
 library(tidyverse)
 library(gt)
 library(sjPlot)
 library(gapminder)
+library(flextable)
+library(webshot)
 
 # check data
 data(gapminder)
@@ -102,7 +105,7 @@ gt_tab <- gt_tab %>%
 
 # table formatting
 # text font, size, color and borders ----
-gt_tab %>%
+gt_tab_fancy <- gt_tab %>%
   tab_options(
     table.font.name = "Optima",
     table.font.color = c_col[1],
@@ -214,3 +217,10 @@ gt_tab %>%
       cells_body(columns = country)
     )
   ) 
+
+# Save gt table
+gtsave(gt_tab_fancy, filename = 'gt_tab.html')
+gtsave(gt_tab, filename = 'gt_tab.png')
+gtsave(gt_tab_fancy, filename = 'gt_tab.rtf')
+gtsave(gt_tab_fancy, filename = 'gt_tab.docx')
+
